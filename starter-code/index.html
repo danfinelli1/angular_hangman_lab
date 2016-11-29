@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app='hangmanApp'>
 
 <head>
   <title>Hangman Game</title>
@@ -12,7 +12,7 @@
 </head>
 
 <body class="full-background">
-<div class='container' id="container" ng-controller="hangmanCtrl">
+<div class='container' id="container" ng-controller="HangmanCtrl as hang">
   <div id='poor-soul' class='row'>
     <pre class='col-md-6 col-md-offset-3'>
 _________
@@ -26,7 +26,7 @@ _________
 
     </pre>
     <div class='col-sm-12 col-md-6 col-md-offset-3 text-center'>
-      ? tries remaining
+      {{hang.hangman.triesRemaining}} bad tries remaining
     </div>
   </div>
   <div class='row'>
@@ -34,7 +34,8 @@ _________
       <span class="label label-default">SOLVING:</span>
     </div>
     <div class='col-sm-12 text-center'>
-      <span class='wide'></span>
+
+      <span class='wide'>{{hang.hangman.displayWord}}</span>
     </div>
   </div>
 
@@ -43,6 +44,9 @@ _________
       <span class="label label-default">GUESSES: </span>
     </div>
     <div class='col-sm-12 text-center' id='guesses'>
+        <span ng-repeat = 'guess in hang.hangman.guesses'>
+          {{guess}} |
+        </span>
     </div>
   </div>
 
@@ -51,7 +55,7 @@ _________
       <span class="label label-default">INPUT:</span>
     </div>
     <div class="col-sm-12 text-center">
-      <input type='text' size='1' id='guess'>
+      <input ng-model='taco' ng-change='hang.guessLetter(taco)'  type='text' size='1' id='guess' autofocus>
     </div>
   </div>
   <div class='row' id='statuses'>
